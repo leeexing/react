@@ -1,0 +1,19 @@
+.btn {
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+.btn .success {
+  background: #67C23A;
+}
+.btn .warning {
+  background: #E6A23C;
+}
+.btn .danger {
+  background: #F56C6C;
+}
+.btn .info {
+  background: #909399;
+}
+.btn .default {
+  background: #409EFF;
+}
