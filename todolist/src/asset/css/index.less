@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+ul, li {
+  list-style: none;
+}
+
+.main {
+  margin: 15px;
+  h1 {
+    text-align: center;
+  }
+  .title {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 70%;
+    }
+    // .all i{
+    //   color: #1890ff;
+    // }
+  }
+  ul {
+    padding: 10px 0;
+    li {
+      display: flex;
+      align-items: center;
+      height: 45px;
+      padding: 0 10px;
+      justify-content: space-between;
+      &:hover {
+        background: #eee;
+        .opr {
+          opacity: 1;
+        }
+      }
+      .status {
+        width: 110px;
+      }
+      .todo-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 60%;
+        margin: 0;
+        .title {
+          font-size: 20px;
+          color: #555;
+          &.done {
+            text-decoration: line-through;
+          }
+        }
+      }
+      .opr {
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -18,9 +18,9 @@ THANKS!
 
 ## My load of learning React
 
-### 快速开发
+### 起步
 
-		推荐使用facebook的 create-react-app 脚手架
+**推荐使用facebook的 create-react-app 脚手架**
 
 ```
 cnpm i create-react-app -g

@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+ul,
+li {
+  list-style: none;
+}
+.main {
+  margin: 15px;
+}
+.main h1 {
+  text-align: center;
+}
+.main .title {
+  display: flex;
+  justify-content: space-between;
+}
+.main .title input {
+  width: 70%;
+}
+.main ul {
+  padding: 10px 0;
+}
+.main ul li {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+.main ul li:hover {
+  background: #eee;
+}
+.main ul li:hover .opr {
+  opacity: 1;
+}
+.main ul li .status {
+  width: 110px;
+}
+.main ul li .todo-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 0;
+}
+.main ul li .todo-list .title {
+  font-size: 20px;
+  color: #555;
+}
+.main ul li .todo-list .title.done {
+  text-decoration: line-through;
+}
+.main ul li .opr {
+  opacity: 0;
+}
