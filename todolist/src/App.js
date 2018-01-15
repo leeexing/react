@@ -22,9 +22,10 @@ class App extends Component {
     this.state = {
       text: '',
       visible: false,
+      showType: 'all',
       deleteItemIndex: 0,
       deleteItem: 'Hello world',
-      todolistsData: [
+      todolists: [
         {
           finish: true,
           title: 'Racing car sprays burning fuel into crowd.',
@@ -42,27 +43,12 @@ class App extends Component {
         },
       ]
     }
-    this.init()
     this.handleChange = this.handleChange.bind(this)
   }
-  init() {
-    this.state.todolists = this.state.todolistsData
-  }
-  showAll() {
+  changeType(type) {
+    console.log(type)
     this.setState({
-      todolists: this.state.todolistsData
-    })
-  }
-  showDone() {
-    let doneLists = this.state.todolistsData.filter(item => item.finish === true)
-    this.setState({
-      todolists: doneLists
-    })
-  }
-  showUndone() {
-    let doneLists = this.state.todolistsData.filter(item => item.finish !== true)
-    this.setState({
-      todolists: doneLists
+      showType: type
     })
   }
   addNewTodo (e) {
@@ -72,13 +58,13 @@ class App extends Component {
         title: e.target.value,
         time: moment().format('llll')
       }
-      let todolistsData = this.state.todolistsData.slice()
-      todolistsData.unshift(newTodo)
+      let todolists = this.state.todolists.slice()
+      todolists.unshift(newTodo)
       this.setState({
         text: '',
-        todolistsData,
-        
+        todolists
       })
+
       setTimeout(() => {
         message.success('you have create a new schedule just now !')
       }, )
@@ -98,7 +84,8 @@ class App extends Component {
   }
   handleOk() {
     let todolists = this.state.todolists.slice()
-    todolists.splice(this.state.deleteItemIndex, 1)
+    let index = this.state.todolists.findIndex(todolist => todolist === this.state.deleteItem)
+    todolists.splice(index, 1)
     this.setState({
       visible: false,
       todolists
@@ -109,24 +96,21 @@ class App extends Component {
       visible: false,
     });
   }
-  handleDelete(index) {
-    console.log(`删除的是第几个任务: ${index}`)
+  handleDelete(item) {
     this.setState({
-      deleteItemIndex: index,
-      deleteItem: this.state.todolists[index].title
-    })
-    // let todolists = this.state.todolists.slice()
-    // todolists.splice(index, 1)
-    // Modal.success({
-    //   title: 'This schedule has deleted successful!',
-    //   content: todolists[index].title,
-    // });
-    // this.setState({todolists})
-    this.setState({
+      deleteItem: item,
       visible: true
     })
   }
   render() {
+    let todolists = null
+    if (this.state.showType === 'all') {
+      todolists = this.state.todolists
+    } else if (this.state.showType === 'done') {
+      todolists = this.state.todolists.filter(item => item.finish)
+    } else {
+      todolists = this.state.todolists.filter(item => !item.finish)
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -144,14 +128,14 @@ class App extends Component {
               className="input"
             />
             <ButtonGroup>
-              <Button onClick={this.showAll.bind(this)} className="all" icon="meh">All</Button>
-              <Button onClick={this.showDone.bind(this)} icon="smile-o">Done</Button>
-              <Button onClick={this.showUndone.bind(this)} icon="frown">Undone</Button>
+              <Button onClick={this.changeType.bind(this, 'all')} type={this.state.showType === "all" ? "default": ""} icon="meh-o">All</Button>
+              <Button onClick={this.changeType.bind(this, 'done')} type={this.state.showType === 'done' ? "primary" : ""} icon="smile-o">Done</Button>
+              <Button onClick={this.changeType.bind(this, 'undone')} type={this.state.showType === 'undone' ? "danger" : ""} icon="frown-o">Undone</Button>
             </ButtonGroup>
           </div>
           <ul>
             {
-              this.state.todolists.map((todolist, index) =>
+              todolists.map((todolist, index) =>
                 <li key={index}>
                   <span className="status">
                     <Checkbox onChange={e => this.changeCheck(e, index)} checked={todolist.finish}>{todolist.finish ? 'Welldone' : 'Unfinish'}</Checkbox>
@@ -161,7 +145,7 @@ class App extends Component {
                     <span className={todolist.finish ? 'title done' : 'title'}>{todolist.title}</span>
                     <time>{todolist.time}</time>
                   </p>
-                  <Button className="opr" type="danger" onClick={e => this.handleDelete(index)}>删除</Button>
+                  <Button className="opr" type="danger" onClick={e => this.handleDelete(todolist)}>删除</Button>
                 </li>
               )
             }
@@ -173,7 +157,7 @@ class App extends Component {
           onOk={this.handleOk.bind(this)}
           onCancel={this.handleCancel.bind(this)}
         >
-          <p>The schedule is: {this.state.deleteItem}</p>
+          <p>The schedule is: {this.state.deleteItem.title}</p>
         </Modal>
       </div>
     );
