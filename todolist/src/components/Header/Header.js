@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Navbar, NavDropdown, NavItem, Nav, MenuItem} from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 
 class Header extends Component {
   render() {
@@ -7,20 +9,28 @@ class Header extends Component {
       <Navbar inverse collapseOnSelect fixedTop={true}>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#brand">LEE</a>
+            <Link to="/">LEE</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="#">
-              Home
-            </NavItem>
-            <NavItem eventKey={2} href="#">
-              About
-            </NavItem>
+            <LinkContainer to="/article">
+              <NavItem eventKey={1}>
+                Article
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <NavItem eventKey={2}>
+                About
+              </NavItem>
+            </LinkContainer>
             <NavDropdown eventKey={3} title="Todos" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>All</MenuItem>
+              <LinkContainer to="/todolist">
+                <MenuItem eventKey={3.1}>
+                  All
+                </MenuItem>
+              </LinkContainer>
               <MenuItem eventKey={3.2}>Done</MenuItem>
               <MenuItem eventKey={3.3}>Undone</MenuItem>
               <MenuItem divider />
@@ -28,6 +38,11 @@ class Header extends Component {
             </NavDropdown>
           </Nav>
           <Nav pullRight>
+            <LinkContainer to="/login">
+              <NavItem eventKey={3.1}>
+                Login
+              </NavItem>
+            </LinkContainer>
             <NavItem eventKey={1} href="#">
               Logout
             </NavItem>

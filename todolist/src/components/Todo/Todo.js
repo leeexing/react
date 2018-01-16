@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from './components/Header/Header'
+import Header from '../Header/Header'
 // import Footer from './components/Footer/Footer'
-import logo from './asset/images/logo.png';
-import './asset/css/App.css';
+import logo from '../../asset/images/logo.png';
+import '../../asset/css/App.css';
 
 
 /**
@@ -118,6 +118,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <Header />
+        {this.props.children}
         <div className="main">
           
           <h1>List of Schedules!</h1>
@@ -129,7 +130,7 @@ class App extends Component {
               className="input"
             />
             <ButtonGroup>
-              <Button onClick={this.changeType.bind(this, 'all')} type={this.state.showType === "all" ? "default": ""} icon="meh-o">All</Button>
+              <Button onClick={this.changeType.bind(this, 'all')} type={this.state.showType === "all" ? "primary": ""} icon="meh-o">All</Button>
               <Button onClick={this.changeType.bind(this, 'done')} type={this.state.showType === 'done' ? "primary" : ""} icon="smile-o">Done</Button>
               <Button onClick={this.changeType.bind(this, 'undone')} type={this.state.showType === 'undone' ? "danger" : ""} icon="frown-o">Undone</Button>
             </ButtonGroup>

@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 60px 0 0;
   font-family: sans-serif;
 }
 ul,
@@ -55,4 +55,10 @@ li {
 }
 .main ul li .opr {
   opacity: 0;
+}
+.login {
+  text-align: center;
+}
+.detail {
+  padding: 10px;
 }
