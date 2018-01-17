@@ -1,10 +1,10 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Header from '../components/Header/Header'
+// import Header from '../components/Header/Header'
 import Home from '../components/Home/Home'
-import About from '../components/About/About'
-import Article from '../components/Article/Article'
-import Todo from '../components/Todo/Todo'
+// import About from '../components/About/About'
+// import Article from '../components/Article/Article'
+// import Todo from '../components/Todo/Todo'
 import Login from '../components/Login/Login'
 
 class AppRoute extends React.Component {

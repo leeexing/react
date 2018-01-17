@@ -152,6 +152,9 @@ class App extends Component {
               )
             }
           </ul>
+          <div className="info center">
+            {todolists.length ? '' : this.state.showType === 'done'? '还没有完成一个任务，还愣着干嘛' : '恭喜你，任务全部完成'}
+          </div>
         </div>
         <Modal
           title="Are you sure to delete this schedule?"

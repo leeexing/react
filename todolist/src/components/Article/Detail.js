@@ -27,13 +27,13 @@ class Detail extends React.Component {
     return (
       <div className="detail">
         <Breadcrumb>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
           <Breadcrumb.Item><Link to="/article">article</Link></Breadcrumb.Item>
           <Breadcrumb.Item>detail</Breadcrumb.Item>
         </Breadcrumb>
         <br/>
         <div>
-          <p>{this.state.article && this.state.article.title}</p>
+          <h3 className="title">{this.state.article && this.state.article.title}</h3>
           <p>{this.state.article && this.state.article.detail}</p>
           {/* <h3>{ props.title}</h3>
           <p>{props.detail}</p> */}
