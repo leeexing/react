@@ -28,7 +28,7 @@
 
 ### 起步
 
-刚一开始，没有同事熟练使用 react，如何能够快速启动一个项目？
+1、刚一开始，没有同事熟练使用 react，如何能够快速启动一个项目？
 **推荐使用facebook的 create-react-app 脚手架**
 
 ```js 快速启动
@@ -41,13 +41,34 @@ npm start
 
 Weolcome to react's world
 
+2、那就是直接使用 antd-init 这个 `ant-design` 的脚手架了
+
 ### 2018/1/17
 
 今天开始使用 reat 制作自己的博客了。
+todolist 项目使用的是 `create-react-app` 脚手架
+凡事都要尝试 ，blog 的脚手架就使用 `dva-cli`. [传送门](https://github.com/dvajs/dva-cli)
 为了不再开一个项目，增加部分重复性的工作，这个 blog 可能一开始就准备有后台的界面
 先搭建好博客的基本首页和相关信息，然后在首页通过用户名权限增加管理员角色，管理员可以访问后台的界面
 后台一开始准备仍旧使用 node 的 koa，发现 vue 的博客已经这样使用了。vue-koa：koa + mongodb
 这里就打算使用 python + mysql 作为后台的服务提供必要的 API 接口。同时，利用 python 我还可以爬虫抓取数据在博客相关页面显示
+
+1、安装
+
+```js
+Success! Created react-blog at E:\Leeing\react\react\react-blog.
+
+Inside that directory, you can run several commands:
+  * npm start: Starts the development server.
+  * npm run build: Bundles the app into dist for production.
+  * npm test: Run test.
+
+We suggest that you begin by typing:
+  cd E:\Leeing\react\react\react-blog
+  npm start
+
+Happy hacking!
+```
 
 ## 参考文献
 

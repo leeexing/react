@@ -1,0 +1,177 @@
+// 引入一些公用的变量颜色
+@import 'variable.scss';
+
+/*
+* 《导航栏》 页面
+*/
+.m-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  padding: 0 100px;
+  background: $navbg;
+  color: $navColor;
+}
+
+/*
+* <侧边栏>
+*/
+.m-sidenav {
+  width: 240px;
+  background: #fff;
+  .site-brand {
+    padding: 20px 0;
+    background-color: $navbg;
+    text-align: center;
+    .info {
+      font-size: 20px;
+      color: #fff;
+    }
+    .motto {
+      color: #ddd;
+      font-size: 12px;
+    }
+  }
+  .site-nav {
+    padding: 20px 0 15px;
+    li {
+      position: relative;
+      padding: 5px 20px;
+      cursor: pointer;
+      &:hover, &.active {
+        background: #f9f9f9;
+      }
+      &.active:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 5px;
+        background: #bbb;
+        border-radius: 50%;
+      }
+      a {
+        display: block;
+        color: #555;
+      }
+      i {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+/*
+* 《登录》页面
+*/
+.m-login {
+  width: 100%;
+  height: 100%;
+  background: url(../images/bg_login.jpg) no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  overflow: hidden;
+  .title {
+    text-align: center;
+    padding-bottom: 20px;
+    color: $titleLoginC;
+    transition: all .3s ease-out;
+    &:hover {
+      transform: translateX(-5px);
+    }
+  }
+  .wrap {
+    width: 500px;
+    margin: 100px auto 0;
+    padding: 30px 40px;
+    border-radius: 5px;
+    background-color: #fff;
+    .remeberme {
+      display: flex;
+      justify-content: space-between;
+    }
+    .login {
+      width: 100%;
+    }
+  }
+}
+.m-register {
+  @extend .m-login;
+  .wrap {
+    margin-top: 80px;
+  }
+}
+/*
+* 《关于》页面
+*/
+.m-about {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  .about-wrap {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    border: 5px solid #ccc;
+  }
+  section {
+    max-width: 800px;
+    .content-about {
+      max-width: 600px;
+    }
+  }
+  .about-logo {
+    animation: about-logo-spin infinite 20s linear;
+    height: 80px;
+  }
+  .about-header {
+    // background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+    .about-title {
+      font-size: 1.5em;
+    }
+  }
+  .about-intro {
+    font-size: 45px;
+    font-weight: 600;
+    line-height: 68px;
+    font-family: "Montserrat",sans-serif;
+  }
+  .contact {
+    padding-top: 20px;
+    a {
+      margin-right: 15px;
+      padding: 10px 20px;
+      border-radius: 2px;
+      background: #222;
+      color: #fff;
+    }
+  }
+}
+
+/*
+* <首页>布局
+*/
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  .nav {
+    float: left;
+  }
+  .content {
+    float: right;
+    width: 700px;
+    padding: 40px;
+    background: #fff;
+  }
+}
