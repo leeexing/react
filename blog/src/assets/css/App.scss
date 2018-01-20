@@ -2,6 +2,32 @@
 @import 'variable.scss';
 
 /*
+* <首页>布局
+*/
+.app {
+  position: relative;
+  .headband {
+    height: 3px;
+    background: #222;
+  }
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    .nav {
+      float: left;
+    }
+    .main-inner {
+      float: right;
+      width: 700px;
+    }
+  }
+  footer{
+    padding: 20px 0;
+    text-align: center;
+  }
+}
+
+/*
 * 《导航栏》 页面
 */
 .m-header {
@@ -115,7 +141,37 @@
   position: relative;
   width: 100%;
   height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   padding: 10px;
+  .go-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    a {
+      padding: 2px 3px;
+      color: #444;
+      &:hover {
+        color: #006d75;
+        + span {
+          transform: translatex(0);
+          opacity: 1;
+        }
+      }
+    }
+    span {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 2px 5px;
+      background: #333;
+      color: #eee;
+      font-size: 12px;
+      transition: all .3s ease;
+      transform: translateX(20px);
+      opacity: 0;
+    }
+  }
   .about-wrap {
     width: 100%;
     height: 100%;
@@ -123,7 +179,9 @@
     border: 5px solid #ccc;
   }
   section {
-    max-width: 800px;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
     .content-about {
       max-width: 600px;
     }
@@ -131,11 +189,16 @@
   .about-logo {
     animation: about-logo-spin infinite 20s linear;
     height: 80px;
+    transition: all 3s linear;
+    cursor: pointer;
+    &:hover {
+      border-radius: 50%;
+      transform: rotate(360deg)
+    }
   }
   .about-header {
-    // background-color: #222;
     height: 150px;
-    padding: 20px;
+    padding-top: 50px;
     color: white;
     .about-title {
       font-size: 1.5em;
@@ -147,31 +210,151 @@
     line-height: 68px;
     font-family: "Montserrat",sans-serif;
   }
+  .info {
+    a {
+      position: relative;
+      padding-bottom: 2px;
+      transform-origin: center;
+      transition: border .3s ease-in;
+      color: inherit;
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: #333;
+        transform: scale(0);
+        transition: all .2s ease;
+      }
+      &:hover {
+        color: #1890ff;
+        &:before {
+          transform: scale(1)
+        }
+      }
+    }
+  }
   .contact {
     padding-top: 20px;
     a {
-      margin-right: 15px;
-      padding: 10px 20px;
+      margin-right: 10px;
+      padding: 15px 20px;
       border-radius: 2px;
-      background: #222;
+      background: #444;
       color: #fff;
+      .icon {
+        margin-right: 5px;
+      }
+      &.email {
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-right: 25px;
+      }
+      &:hover {
+        background: #262626;
+        .icon {
+          color: #FFA418;
+        }
+      }
     }
   }
 }
 
 /*
-* <首页>布局
+* <文章列表>
 */
-.app {
-  max-width: 960px;
-  margin: 0 auto;
-  .nav {
-    float: left;
+// .article-list {
+// }
+.post {
+  padding: 40px;
+  margin-bottom: 15px;
+  background: #fff;
+  box-shadow: 0 0 2px 2px #ddd;
+  .post-header {
+    text-align: center;
+    .title {
+      a {
+        position: relative;
+        &:hover {
+          &:before {
+            transform: scale(1)
+          }
+        }
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          width: 100%;
+          height: 2px;
+          background: #222;
+          transition: all .3s ease;
+          transform: scale(0);
+          transform-origin: center;
+        }
+      }
+    }
+    .post-meta {
+      font-size: 12px;
+      margin-bottom: 10px;
+      color: #666;
+      .icon {
+        margin-right: 5px;
+        font-size: inherit;
+      }
+    }
   }
-  .content {
-    float: right;
-    width: 700px;
-    padding: 40px;
-    background: #fff;
+  .post-body {
+    .guide-word {
+      padding: 20px 40px;
+      color: #999;
+      font-size: 14px;
+    }
+    .cover {
+      img {
+        max-width: 100%;
+        padding: 3px;
+        margin-bottom: 25px;
+        border: 1px solid #ddd;
+      }
+    }
+    .forward {
+      padding: 10px 0;
+      text-align: left;
+    }
+    .read-more {
+      padding-top: 30px;
+      text-align: center;
+      a {
+        display: inline-block;
+        padding: 5px 20px;
+        border: 2px solid #555;
+        border-radius: 2px;
+        color: #555;
+        font-size: 14px;
+        transition: all .2s ease-in-out;
+        &:hover {
+          background: #222;
+          color: #fff;
+          border-color: #222;
+        }
+      }
+    }
+    .post-copy-right {
+      margin-top: 20px;
+      border-left: 3px solid #ff4d4f;
+      padding: 8px 10px;
+      background: #f9f9f9;
+      li {
+        margin-bottom: 5px;
+        a {
+          color: #777;
+          text-decoration: underline;
+          &:hover {
+            color: #333;
+          }
+        }
+      }
+    }
   }
 }

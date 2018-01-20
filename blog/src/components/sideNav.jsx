@@ -18,7 +18,7 @@ class SideNav extends React.Component {
             <ul>
               <li className="active">
                 <Link to="/">
-                  <i className="icon iconfont icon-code"></i>
+                  <i className="icon iconfont icon-home"></i>
                   首页
                 </Link>
               </li>
