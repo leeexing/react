@@ -14,7 +14,10 @@ a {
   color: #333;
   list-style: none;
 }
-p {
+a:hover, a:active, a:link, a:visited {
+  text-decoration: none;
+}
+p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
 }
