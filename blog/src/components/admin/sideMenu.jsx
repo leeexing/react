@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PubSub from 'pubsub-js'
 
 import { Menu, Icon, Switch } from 'antd';
 const SubMenu = Menu.SubMenu;
@@ -19,6 +20,8 @@ class Sider extends React.Component {
     this.setState({
       theme: value ? 'dark' : 'light',
     });
+    let bgColor = value ? '#222' : '#F6F6F6'
+    PubSub.publish('change_bg', bgColor)
   }
   handleClick(e) {
     console.log('click ', e);
@@ -53,7 +56,7 @@ class Sider extends React.Component {
             <Menu.Item key="4">趣味问答</Menu.Item>
           </SubMenu>
           <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>试验田</span></span>}>
-            <Menu.Item key="5">Map</Menu.Item>
+            <Menu.Item key="/admin/map">Map</Menu.Item>
             <Menu.Item key="6">Echart</Menu.Item>
             <SubMenu key="sub3" title="python">
               <Menu.Item key="7">spider</Menu.Item>

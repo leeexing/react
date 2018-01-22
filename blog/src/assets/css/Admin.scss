@@ -8,14 +8,15 @@
   background: #eee;
   header {
     height: 60px;
-    padding: 0 50px;
-    background: #222;
     .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 100%;
+      padding: 0 50px;
       color: #fff;
+      background: #222;
+      transition: all .3s ease;
       .site-logo {
         img {
           width: 36px;
@@ -80,6 +81,8 @@
         height: 100%;
         > ul {
           height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
         }
         .ant-menu-item a {
           display: inline-block;

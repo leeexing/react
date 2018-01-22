@@ -1,4 +1,5 @@
 import React from 'react'
+import PubSub from 'pubsub-js'
 import { Link} from 'react-router-dom'
 import { Menu, Dropdown, Icon } from 'antd'
 import avatar from '../../assets/images/admin_avatar.png'
@@ -18,9 +19,29 @@ const menu = (
 );
 
 class Header extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      bg: {}
+    }
+  }
+  componentDidMount() {
+    this.change_bg = PubSub.subscribe('change_bg', (topic, bgColor) => {
+      console.log(topic, bgColor)
+      let bg = {
+        background: bgColor
+      }
+      this.setState({
+        bg
+      })
+    })
+  }
+  componentWillUnmount() {
+    PubSub.unsubscribe(this.change_bg)
+  }
   render() {
     return (
-      <div className="header-inner">
+      <div className="header-inner" style={this.state.bg}>
         <div className="site-logo">
           <Link to="/">
             <img src={avatar} alt="avatar"/>
