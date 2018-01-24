@@ -5,6 +5,8 @@
 export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+export const HELLO_LEGEND = 'HELLO_LEGEND'
+export const PLUS_LEGEND = 'PLUS_LEGEND'
 
 /*
  * 其它的常量
@@ -30,4 +32,12 @@ export function toggleTodo(index) {
 
 export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter }
+}
+
+export function helloLegend(text) {
+  return { type: HELLO_LEGEND, text }
+}
+
+export function plusLengend(count) {
+  return {type: PLUS_LEGEND, count}
 }

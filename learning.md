@@ -396,3 +396,8 @@ Action 本质上是 JavaScript 普通对象。我们约定，action 内必须使
 ```js action
 import { ADD_TODO, REMOVE_TODO } from '../actionTypes'
 ```
+
+### 终于理解了
+
+看了好久的redux文档，但是始终还是不知道如何上手
+从开始的

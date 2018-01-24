@@ -20,7 +20,10 @@ class Sider extends React.Component {
     this.setState({
       theme: value ? 'dark' : 'light',
     });
-    let bgColor = value ? '#222' : '#F6F6F6'
+    let bgColor = {
+      bg: value ? '#222' : '#F6F6F6',
+      icon: value ? '#fff' : '#eb2f96'
+    }
     PubSub.publish('change_bg', bgColor)
   }
   handleClick(e) {
@@ -44,7 +47,7 @@ class Sider extends React.Component {
         <Menu
           theme={this.state.theme}
           onClick={this.handleClick}
-          defaultOpenKeys={['sub1']}
+          defaultOpenKeys={['sub2','sub5']}
           selectedKeys={[this.state.current]}
           mode="inline"
         >
@@ -56,6 +59,7 @@ class Sider extends React.Component {
             <Menu.Item key="4">趣味问答</Menu.Item>
           </SubMenu>
           <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>试验田</span></span>}>
+            <Menu.Item key="/admin/answer">Answer</Menu.Item>
             <Menu.Item key="/admin/map">Map</Menu.Item>
             <Menu.Item key="6">Echart</Menu.Item>
             <SubMenu key="sub3" title="python">

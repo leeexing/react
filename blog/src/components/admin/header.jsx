@@ -1,8 +1,12 @@
 import React from 'react'
+
+import PropTypes from 'prop-types'
 import PubSub from 'pubsub-js'
 import { Link} from 'react-router-dom'
 import { Menu, Dropdown, Icon } from 'antd'
 import avatar from '../../assets/images/admin_avatar.png'
+
+import store from '../../redux/store/store'
 
 const menu = (
   <Menu>
@@ -22,17 +26,29 @@ class Header extends React.Component {
   constructor() {
     super()
     this.state = {
-      bg: {}
+      bg: {},
+      colot: {}
     }
   }
   componentDidMount() {
+    // 这里使用的是 redux 的方式，实现数据的 共享
+    console.log(store)
+    let state_store = store.getState()
+    this.setState({
+      legend: state_store.legend.msg
+    })
+
+    // 这里使用的是 订阅发布的方式 实现数据跨组间传递
     this.change_bg = PubSub.subscribe('change_bg', (topic, bgColor) => {
       console.log(topic, bgColor)
       let bg = {
-        background: bgColor
+        background: bgColor.bg
+      }
+      let color = {
+        color: bgColor.icon
       }
       this.setState({
-        bg
+        bg, color
       })
     })
   }
@@ -49,12 +65,12 @@ class Header extends React.Component {
           </Link>
         </div>
         <div className="site-brand">
-          <h1>LEE's Kingdom</h1>
+          <h1>LEE's Kingdom > {this.context.store.legend.count}</h1>
         </div>
         <div className="site-nav">
-          <Link to="/login" className="logout"><i className="icon iconfont icon-logout"></i></Link>
+          <Link to="/login" className="logout" style={this.state.color}><i className="icon iconfont icon-logout"></i></Link>
           <Dropdown overlay={menu}>
-            <a className="ant-dropdown-link">
+            <a className="ant-dropdown-link" style={this.state.color}>
               <Icon type="coffee" />
             </a>
           </Dropdown>
@@ -63,4 +79,9 @@ class Header extends React.Component {
     )
   }
 }
+
+Header.contextTypes = {
+  store: PropTypes.object
+}
+
 export default Header
