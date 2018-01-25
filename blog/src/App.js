@@ -11,6 +11,9 @@ import { connect } from 'react-redux'
 import { VisibilityFilters } from './redux/actions/actions'
 
 class App extends Component {
+  static childContextTypes = {
+    store: PropTypes.object
+  }
   getChildContext() {
     return {
       store: this.props
@@ -32,9 +35,9 @@ class App extends Component {
   }
 }
 
-App.childContextTypes = {
-  store: PropTypes.object
-}
+// App.childContextTypes = {
+//   store: PropTypes.object
+// }
 
 App.propTypes = {
   visibleTodos: PropTypes.arrayOf(PropTypes.shape({

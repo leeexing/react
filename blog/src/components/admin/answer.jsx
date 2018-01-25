@@ -24,7 +24,7 @@ class Answer extends React.Component {
   constructor () {
     super()
     this.state = {
-      num: 0
+      num: 1
     }
   }
   componentDidMount () {
@@ -33,7 +33,7 @@ class Answer extends React.Component {
   }
   emitStore () {
     // console.log(store.getState())
-    store.dispatch(addTodo('什么鬼'))
+    store.dispatch(addTodo('学习redux'))
     store.dispatch(helloLegend('什么鬼'))
   }
   addLegend () {

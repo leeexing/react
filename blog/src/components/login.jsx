@@ -1,6 +1,8 @@
 import React from 'react'
+import axios from 'axios'
+import qs from 'qs'
 
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
@@ -15,7 +17,14 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.state.history.push('/')
+        axios.post('/api/login?a=12&b=34', qs.stringify(values)).then(data => {
+          console.log(data)
+          if (!data.data.success) {
+            message.error(data.data.msg)
+            return
+          }
+          this.state.history.push('/')
+        })
       }
     });
   }

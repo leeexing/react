@@ -23,6 +23,9 @@ const menu = (
 );
 
 class Header extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
   constructor() {
     super()
     this.state = {
@@ -32,6 +35,7 @@ class Header extends React.Component {
   }
   componentDidMount() {
     // 这里使用的是 redux 的方式，实现数据的 共享
+    console.warn(this.context.store)
     console.log(store)
     let state_store = store.getState()
     this.setState({
@@ -80,8 +84,8 @@ class Header extends React.Component {
   }
 }
 
-Header.contextTypes = {
-  store: PropTypes.object
-}
+// Header.contextTypes = {
+//   store: PropTypes.object
+// }
 
 export default Header

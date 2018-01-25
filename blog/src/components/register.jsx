@@ -1,44 +1,29 @@
 import React from 'react'
+import axios from 'axios'
+import qs from 'qs'
 
-import { Form, Input, Tooltip, Icon, Select, Checkbox, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Checkbox, Button, message } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
-// const AutoCompleteOption = AutoComplete.Option;
-
-// const residences = [{
-//   value: 'zhejiang',
-//   label: 'Zhejiang',
-//   children: [{
-//     value: 'hangzhou',
-//     label: 'Hangzhou',
-//     children: [{
-//       value: 'xihu',
-//       label: 'West Lake',
-//     }],
-//   }],
-// }, {
-//   value: 'jiangsu',
-//   label: 'Jiangsu',
-//   children: [{
-//     value: 'nanjing',
-//     label: 'Nanjing',
-//     children: [{
-//       value: 'zhonghuamen',
-//       label: 'Zhong Hua Men',
-//     }],
-//   }],
-// }];
 
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
+    autoCompleteResult: []
   };
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        axios.post('/api/register', qs.stringify(values)).then(data => {
+          console.log(data)
+          if (!data.data.success) {
+            message.warn(data.data.msg)
+            return
+          }
+          this.props.history.push('/login')
+        })
       }
     });
   }

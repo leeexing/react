@@ -399,5 +399,271 @@ import { ADD_TODO, REMOVE_TODO } from '../actionTypes'
 
 ### 终于理解了
 
+> 原来 redux 传递数据也还是需要借助 props 或者 context。用vuex的思维套过来有点绕了
+
 看了好久的redux文档，但是始终还是不知道如何上手
 从开始的
+
+```js reducer.js
+function hello(state = {count: 0, msg: '豆浆油条'}, action) {
+  switch (action.type) {
+    case HELLO_LEGEND:
+      return {
+        ...state,
+        msg: action.text
+      }
+    case PLUS_LEGEND:
+      return {
+        ...state,
+        count: action.count
+      }
+    default:
+      return state
+  }
+}
+
+const todoApp = combineReducers({
+  visibilityFilter,
+  todos,
+  legend:hello
+})
+```
+
+```js actions
+export function helloLegend(text) {
+  return { type: HELLO_LEGEND, text }
+}
+
+export function plusLengend(count) {
+  return {type: PLUS_LEGEND, count}
+}
+```
+
+```js store.js
+import { createStore } from 'redux'
+import todoApp from '../reducer'
+// import {addTodo, helloLegend} from '../actions/actions'
+const store = createStore(todoApp)
+
+export default store
+```
+
+```js index.js
+import store from './redux/store/store'
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
+```
+
+```js App.jsx
+class App extends Component {
+  static childContextTypes = {
+    store: PropTypes.object
+  }
+  getChildContext() {
+    return {
+      store: this.props
+    }
+  }
+  render() {
+    console.info(this.props)
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/login" component={Login}></Route>
+          <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/about" component={About}></Route>
+          <Route path="/admin" component={Admin}></Route>
+          <Route path="/" component={Home}></Route>
+        </Switch>
+      </Router>
+    )
+  }
+}
+
+// 要么这里定义 子组件环境，要么再class 里面 使用 static 的方法
+App.childContextTypes = {
+  store: PropTypes.object
+}
+
+function select(state) {
+  return {
+    visibleTodos: selectTodos(state.todos, state.visibilityFilter, state.legend),
+    visibilityFilter: state.visibilityFilter,
+    legend: state.legend
+  }
+}
+
+export default connect(select)(App)
+```
+
+```js header.jsx
+import store from '../../redux/store/store'
+
+class Header extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+  constructor() {
+    super()
+    this.state = {
+      bg: {},
+      colot: {}
+    }
+  }
+  componentDidMount() {
+    // 这里使用的是 redux 的方式，实现数据的 共享
+    console.log(store)
+    let state_store = store.getState()
+    this.setState({
+      legend: state_store.legend.msg
+    })
+  }
+  render() {
+    return (
+      <div className="header-inner" style={this.state.bg}>
+        <div className="site-logo">
+          <Link to="/">
+            <img src={avatar} alt="avatar"/>
+            <span>欢迎访问我的博客</span>
+          </Link>
+        </div>
+        <div className="site-brand">
+          <h1>LEE's Kingdom > {this.context.store.legend.count}</h1>
+        </div>
+      </div>
+    )
+  }
+}
+```
+
+另一个组件，和 header 完全分离。但是想在 answer 组件内容点击按钮改变 header 组件内部的某些值
+
+```js answer.jsx
+import {addTodo, helloLegend, plusLengend} from '../../redux/actions/actions'
+import store from '../../redux/store/store'
+
+class Answer extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      num: 1
+    }
+  }
+  componentDidMount () {
+    console.log(store)
+    console.log(store.getState())
+  }
+  emitStore () {
+    // console.log(store.getState())
+    store.dispatch(addTodo('学习redux'))
+    store.dispatch(helloLegend('什么鬼'))
+  }
+  addLegend () {
+    let num = this.state.num
+    store.dispatch(plusLengend(num))
+    this.setState({
+      num: this.state.num + 1
+    })
+  }
+  getStore () {
+    console.log(store.getState())
+  }
+  render () {
+    return (
+      <div className="ai">
+        <Row>
+          <Col span={8}>
+            <Button onClick={this.emitStore} type="danger">dispatch Store</Button>
+          </Col>
+          <Col span={8}>
+            <Button onClick={this.addLegend.bind(this)} type="danger">add Legend count</Button>
+          </Col>
+          <Col span={8}>
+            <Button onClick={this.getStore} type="danger">get Store</Button>
+          </Col>
+        </Row>
+      </div>
+    )
+  }
+}
+```
+
+------------------------------------------------
+
+**补充**：
+Class 的静态方法
+类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+
+```js es6-class
+class Foo {
+  static classMethod() {
+    return 'hello';
+  }
+}
+
+Foo.classMethod() // 'hello'
+
+var foo = new Foo();
+foo.classMethod()
+
+父类的静态方法，可以被子类继承。
+
+class Foo {
+  static classMethod() {
+    return 'hello';
+  }
+}
+
+class Bar extends Foo {
+}
+
+Bar.classMethod() // 'hello'
+```
+
+Class 的静态属性和实例属性
+
+```js es6-static-props
+class Foo {
+}
+
+Foo.prop = 1;
+Foo.prop // 1
+
+上面的写法为Foo类定义了一个静态属性prop。
+
+目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
+
+// 以下两种写法都无效
+class Foo {
+  // 写法一
+  prop: 2
+
+  // 写法二
+  static prop: 2
+}
+
+Foo.prop // undefined
+```
+
+看来 babel 功能很强大啊！！！！！！
+
+目前有一个静态属性的提案，对实例属性和静态属性都规定了新的写法。
+**类的静态属性只要在上面的实例属性写法前面，加上static关键字就可以了**
+
+```js new-es6
+// 老写法
+class Foo {
+  // ...
+}
+Foo.prop = 1;
+
+// 新写法
+class Foo {
+  static prop = 1;
+}
+```
