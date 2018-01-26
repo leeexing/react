@@ -59,6 +59,11 @@ class Header extends React.Component {
   componentWillUnmount() {
     PubSub.unsubscribe(this.change_bg)
   }
+  logout() {
+    console.log(this.props.history)
+    sessionStorage.setItem('auth', null)
+    this.props.history.push('/login')
+  }
   render() {
     return (
       <div className="header-inner" style={this.state.bg}>
@@ -69,10 +74,10 @@ class Header extends React.Component {
           </Link>
         </div>
         <div className="site-brand">
-          <h1>LEE's Kingdom > {this.context.store.legend.count}</h1>
+          <h1>LEE's Kingdom{this.context.store.legend.count > 0 ? this.context.store.legend.count : ''}</h1>
         </div>
         <div className="site-nav">
-          <Link to="/login" className="logout" style={this.state.color}><i className="icon iconfont icon-logout"></i></Link>
+          <a onClick={this.logout.bind(this)} className="logout" style={this.state.color} ><i className="icon iconfont icon-logout"></i></a>
           <Dropdown overlay={menu}>
             <a className="ant-dropdown-link" style={this.state.color}>
               <Icon type="coffee" />

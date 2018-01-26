@@ -41,6 +41,7 @@ def login():
             }
         if user:
             data['isAdmin'] = user.get('isAdmin')
+            data['username'] = user.get('username')
         return jsonify(data)
 
 @app.route('/api/register', methods=['GET','POST'])

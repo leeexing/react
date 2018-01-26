@@ -7,6 +7,13 @@ import Music from './music'
 import { BackTop } from 'antd'
 
 class Index extends React.Component {
+  componentWillMount() {
+    let auth = sessionStorage.getItem('auth')
+    console.log(auth)
+    if (auth === 'null') {
+      this.props.history.push('/login')
+    }
+  }
   render() {
     return (
       <div className="app">
@@ -14,7 +21,7 @@ class Index extends React.Component {
         <header className="header"></header>
         <main className="main clearfix">
           <div className="nav">
-            <SideNav />
+            <SideNav history={this.props.history} />
           </div>
           <div className="main-inner">
             <Route path="/article/:id" component={ArticleDetail}></Route>

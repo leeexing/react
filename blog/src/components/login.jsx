@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import qs from 'qs'
+import PubSub from 'pubsub-js'
 
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 const FormItem = Form.Item;
@@ -11,6 +12,9 @@ class NormalLoginForm extends React.Component {
     this.state = {
       history: props.history
     }
+  }
+  loginSuccess(loginInfo) {
+    PubSub.publish('login-ok', loginInfo)
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +27,10 @@ class NormalLoginForm extends React.Component {
             message.error(data.data.msg)
             return
           }
+          sessionStorage.setItem('auth', true)
+          sessionStorage.setItem('isAdmin', data.data.isAdmin)
           this.state.history.push('/')
+          this.loginSuccess({isAdmin: data.data.isAdmin, username: data.data.username})
         })
       }
     });

@@ -57,10 +57,28 @@
     .info {
       font-size: 20px;
       color: #fff;
+      text-transform: uppercase;
     }
     .motto {
+      position: relative;
       color: #ddd;
       font-size: 12px;
+      &:hover .icon {
+        right: 20px;
+        opacity: 1;
+        color: #eb2f96;
+      }
+      .icon {
+        position: absolute;
+        top: 1px;
+        right: 10px;
+        font-size: 12px;
+        margin-left: 3px;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(.8);
+        transition: all .3s ease-in-out;
+      }
     }
   }
   .site-nav {

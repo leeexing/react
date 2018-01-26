@@ -9,11 +9,23 @@ import Map from './map'
 import Answer from './answer'
 
 class Admin extends React.Component {
+  componentWillMount() {
+    console.log(this.props)
+    let auth = sessionStorage.getItem('auth')
+    let isAdmin = sessionStorage.getItem('isAdmin')
+    console.log(isAdmin)
+    console.log(auth)
+    if (auth === 'null') {
+      this.props.history.push('/login')
+    } else if (isAdmin === 'false') {
+      this.props.history.push('/')
+    }
+  }
   render() {
     return (
       <div className="admin" id="admin">
         <header className="header">
-          <Header/>
+          <Header history={this.props.history}/>
         </header>
         <main className="main">
           <nav className="side-nav">
