@@ -27,7 +27,9 @@ class NormalLoginForm extends React.Component {
             message.error(data.data.msg)
             return
           }
+          sessionStorage.setItem('token', data.data.username)
           sessionStorage.setItem('auth', true)
+          document.cookie = 'blog-ticket=' + data.data.token
           sessionStorage.setItem('isAdmin', data.data.isAdmin)
           this.state.history.push('/')
           this.loginSuccess({isAdmin: data.data.isAdmin, username: data.data.username})

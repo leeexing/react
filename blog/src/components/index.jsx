@@ -4,6 +4,7 @@ import SideNav from './sideNav'
 import ArticleList from './articleList'
 import ArticleDetail from './articleDetail'
 import Music from './music'
+import Search from './search'
 import { BackTop } from 'antd'
 
 class Index extends React.Component {
@@ -26,6 +27,7 @@ class Index extends React.Component {
           <div className="main-inner">
             <Route path="/article/:id" component={ArticleDetail}></Route>
             <Route path="/music" component={Music}></Route>
+            <Route path="/search" component={Search}></Route>
             <Route exact path="/" component={ArticleList}></Route>
           </div>
         </main>

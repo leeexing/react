@@ -8,8 +8,6 @@ import './assets/css/index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-// import todoApp from './redux/reducer'
-// let store = createStore(todoApp)
 import store from './redux/store/store'
 
 ReactDOM.render(

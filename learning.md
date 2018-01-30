@@ -667,3 +667,31 @@ class Foo {
   static prop = 1;
 }
 ```
+
+## proxy
+
+> 代理的写法问题
+
+    When `proxy` in package.json is as an object, each `context` object must have a `target` property specified as a url string
+
+```js
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": [
+    "http://localhost:5000/",
+    "https://img3.doubanio.com"
+  ]
+
+
+修改方法如下
+
+"proxy": {
+    "/api/**": { "target": "http://localhost:5000/", "secure": false},
+    "/douban/**": { "target": "https://img3.doubanio.com", "secure": false}
+  }
+}
+```

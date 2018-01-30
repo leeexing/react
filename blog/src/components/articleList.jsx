@@ -1,6 +1,6 @@
 import React from 'react'
 import Article from './article'
-import axios from 'axios'
+import axios from '../utils/http'
 
 class ArticleList extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class ArticleList extends React.Component {
   componentDidMount() {
     let auth = sessionStorage.getItem('auth')
     console.log(auth)
-    if (auth === 'null') {
+    if (auth === 'null' || auth === null) {
       this.props.history.push('/login')
     } else {
       // fetch('http://v3.wufazhuce.com:8000/api/channel/reading/more/0').then(res => {
@@ -25,11 +25,12 @@ class ArticleList extends React.Component {
       // })
       axios.get('http://v3.wufazhuce.com:8000/api/channel/reading/more/0')
         .then(data => {
-          console.log(data)
+          // console.log(data)
           this.setState({
             articles: data.data.data
           })
         })
+      
     }
   }
   render() {

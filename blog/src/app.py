@@ -1,16 +1,39 @@
 '''
 react blog
 '''
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, request, session, Response
 import pymongo
 import re
+import os
 
 app = Flask(__name__)
+# 产生24位随机的字段 作为 salt
+app.config['SECRET_KEY'] = os.urandom(24)
 
 client = pymongo.MongoClient('localhost', 27017)
 user_db = client['myblog']['users']
 user_react = client['myblog']['usersReact']
-douban_music = client['duoban']['duobanData']
+douban_music = client['myblog']['music']
+
+# 这个很重要 -- 几个request 的钩子函数 -- before_request 和 after_request
+@app.before_request
+def before_request():
+    if request.path != '/api/login':
+        auth = request.headers.get('Authorization')
+        if not auth:
+            return jsonify(401)
+
+    # print(request.path)
+    # if request.path != '/api/login':
+    #     auth = request.headers.get('Authorization')
+    #     print('*'*20)
+    #     print(auth)
+    #     resp = make_response()
+    #     resp.headers['Authorization'] = 'leeing'
+    #     return resp
+        
+    # if not auth:
+    #     return url_for('login')
 
 @app.route('/api/login', methods=['GET', 'POST'])
 def login():
@@ -42,6 +65,7 @@ def login():
         if user:
             data['isAdmin'] = user.get('isAdmin')
             data['username'] = user.get('username')
+            session['username'] = user.get('username')
         return jsonify(data)
 
 @app.route('/api/register', methods=['GET','POST'])
@@ -87,7 +111,6 @@ def register():
     print(data)
     return jsonify(data)
 
-        
 
 @app.route('/api/users', methods=['GET'])
 def users():
@@ -105,12 +128,22 @@ def users():
     return jsonify(data)
 
 @app.route('/api/music', methods=['GET'])
-def get_music():
-    musics = list(douban_music.find({'type': '轻音乐'}))
-    # print(musics)
+@app.route('/api/music/<category>', methods=['GET'])
+def get_music(category=1):
+    # print(category)
+    # print(request.headers)
+    print(request.cookies)
+    # auth = request.headers.get('Authorization')
+    # print('#'*20)
+    # print(auth)
+    # if not auth:
+    #     print(4455)
+    #     return redirect('/')
+    musics = list(douban_music.find({"type": int(category)}))
+    print(category)
+    print(musics)
     music_data = [item.pop('_id') for item in musics]
     # print(music_data)
-    print(musics)
     data = {
         'success': True,
         'data': musics
