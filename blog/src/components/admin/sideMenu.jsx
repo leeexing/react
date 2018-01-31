@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PubSub from 'pubsub-js'
+// import PubSub from 'pubsub-js'
+import PropTypes from 'prop-types'
+import { changeTheme } from '../../redux/actions/index'
 
 import { Menu, Icon, Switch } from 'antd';
 const SubMenu = Menu.SubMenu;
 
 class Sider extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
   constructor(props) {
     super()
     this.state = {
@@ -17,14 +22,20 @@ class Sider extends React.Component {
     this.changeTheme = this.changeTheme.bind(this)
   }
   changeTheme(value) {
+    let theme = value ? 'dark' : 'light'
     this.setState({
-      theme: value ? 'dark' : 'light',
-    });
-    let bgColor = {
-      bg: value ? '#222' : '#F6F6F6',
-      icon: value ? '#fff' : '#eb2f96'
-    }
-    PubSub.publish('change_bg', bgColor)
+      theme
+    })
+    console.log(this.context)
+    console.log(theme)
+    this.context.store.dispatch(changeTheme(theme))
+
+    // PubSub 订阅方式实现
+    // let bgColor = {
+    //   bg: value ? '#222' : '#F6F6F6',
+    //   icon: value ? '#fff' : '#eb2f96'
+    // }
+    // PubSub.publish('change_bg', bgColor)
   }
   handleClick(e) {
     console.log('click ', e);
@@ -38,11 +49,11 @@ class Sider extends React.Component {
       <div>
         <div className="toggle-theme">
           <Switch
-                checked={this.state.theme === 'dark'}
-                onChange={this.changeTheme}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
-              />
+            checked={this.state.theme === 'dark'}
+            onChange={this.changeTheme}
+            checkedChildren="Dark"
+            unCheckedChildren="Light"
+          />
         </div>
         <Menu
           theme={this.state.theme}

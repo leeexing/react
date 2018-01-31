@@ -1,12 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 import qs from 'qs'
-import PubSub from 'pubsub-js'
+// import PubSub from 'pubsub-js'
+import PropTypes from 'prop-types'
+import {login} from '../redux/actions/index'
 
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
   constructor(props) {
     super()
     this.state = {
@@ -14,7 +19,9 @@ class NormalLoginForm extends React.Component {
     }
   }
   loginSuccess(loginInfo) {
-    PubSub.publish('login-ok', loginInfo)
+    // PubSub.publish('login-ok', loginInfo)
+    // 使用redux
+    this.context.store.dispatch(login(loginInfo))
   }
   handleSubmit = (e) => {
     e.preventDefault();

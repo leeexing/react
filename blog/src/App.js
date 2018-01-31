@@ -12,7 +12,7 @@ class App extends Component {
   }
   getChildContext() {
     return {
-      store: this.props.store
+      store: this.props
     }
   }
   render() {
@@ -23,12 +23,8 @@ class App extends Component {
   }
 }
 
-// App.childContextTypes = {
-//   store: PropTypes.object
-// }
-
-App.propTypes = {
-  store: PropTypes.object
+// App.propTypes = {
+//   store: PropTypes.object,
   // visibleTodos: PropTypes.arrayOf(PropTypes.shape({
   //   text: PropTypes.string.isRequired,
   //   completed: PropTypes.bool.isRequired
@@ -38,7 +34,7 @@ App.propTypes = {
   //   'SHOW_COMPLETED',
   //   'SHOW_ACTIVE'
   // ]).isRequired
-}
+// }
 
 // function selectTodos(todos, filter) {
 //   switch (filter) {
@@ -63,5 +59,15 @@ App.propTypes = {
 //   }
 // }
 
+
+function test(state) {
+  // console.log(state)
+  return {
+    constant: state.constant,
+    todoList: state.todoList
+  }
+}
+
+export default connect(test)(App)
 // export default connect(select)(App)
-export default App
+// export default App

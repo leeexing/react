@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Header from './header'
 import Sider from './sideMenu'
@@ -9,7 +10,16 @@ import Map from './map'
 import Answer from './answer'
 
 class Admin extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
   componentWillMount() {
+    console.log(this.props)
+    let isAdmin = this.context.store.constant.userInfo.isAdmin
+    console.log(isAdmin)
+    if (!isAdmin) {
+      this.props.history.push('/')
+    }
     // console.log(this.props)
     // let auth = sessionStorage.getItem('auth')
     // let isAdmin = sessionStorage.getItem('isAdmin')
@@ -22,7 +32,7 @@ class Admin extends React.Component {
     // }
     global.constants.http.get('/api/admin')
       .then(data => {
-        console.log(data)
+        // console.log(data)
       })
     // console.log(this.context)
   }

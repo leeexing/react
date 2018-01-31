@@ -7,3 +7,11 @@ export const login = username => {
     payload: username
   }
 }
+
+// 更改后台主题
+export const changeTheme = theme => {
+  return {
+    type: actionType.CHANGE_THEME,
+    payload: theme
+  }
+}

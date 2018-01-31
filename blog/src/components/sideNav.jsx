@@ -1,28 +1,32 @@
 import React from 'react'
 import { message } from 'antd'
 import { Link } from 'react-router-dom'
-import PubSub from 'pubsub-js'
+// import PubSub from 'pubsub-js'
+import PropTypes from 'prop-types'
 
 class SideNav extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
   constructor(props) {
     super()
     this.state = {
       isAdmin: false,
-      username: 'leeing'
+      username: 'leexing'
     }
   }
   componentDidMount() {
     console.log('执行了什么呢？')
-    this.is_admin = PubSub.subscribe('login-ok', (topic, loginInfo) => {
-      this.setState({
-        isAdmin: loginInfo.isAdmin,
-        username: loginInfo.username
-      })
-    })
+    // this.is_admin = PubSub.subscribe('login-ok', (topic, loginInfo) => {
+    //   this.setState({
+    //     isAdmin: loginInfo.isAdmin,
+    //     username: loginInfo.username
+    //   })
+    // })
   }
-  componentWillUnmount() {
-    PubSub.unsubscribe(this.is_admin)
-  }
+  // componentWillUnmount() {
+  //   PubSub.unsubscribe(this.is_admin)
+  // }
   logout() {
     global.constants.http.post('/api/logout')
       .then(data => {
@@ -37,11 +41,14 @@ class SideNav extends React.Component {
   }
   render() {
     console.log(this.state.isAdmin)
+    let username = this.context.store.constant.userInfo.username || this.state.username
+    let isAdmin = this.context.store.constant.userInfo.isAdmin
+    // console.log(this.context.store.constant.username)
     return (
       <nav className="m-sidenav">
         <section className="header-top">
           <div className="site-brand">
-            <h1 className="info">{this.state.username}</h1>
+            <h1 className="info">{username}</h1>
             <p className="motto"><span>Keep Simple | Keep Sunshine</span><i onClick={this.logout.bind(this)} className="icon iconfont icon-logout"></i></p>
           </div>
           <div className="site-nav">
@@ -71,7 +78,7 @@ class SideNav extends React.Component {
                 </Link>
               </li>
               {
-                this.state.isAdmin
+                isAdmin
                 &&
                 <li>
                   <Link to="/admin">

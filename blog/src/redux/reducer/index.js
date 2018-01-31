@@ -1,16 +1,19 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const defaultState = {
-  username: 'leeing',
+  userInfo: {
+    username: 'leeing',
+    isAdmin: false
+  },
   theme: 'dark'
 }
-export const store = (state = defaultState, action = {}) => {
+export const constant = (state = defaultState, action = {}) => {
   const {type, payload} = action
   switch (type) {
     case actionTypes.LOG_IN:
       return {
         ...state,
-        username: payload
+        userInfo: payload
       }
     case actionTypes.CHANGE_THEME:
       return {
