@@ -1,6 +1,7 @@
 import React from 'react'
-import { Button, Input } from 'antd'
 import axios from 'axios'
+import { Input } from 'antd'
+const Search = Input.Search
 
 class Music extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Music extends React.Component {
   handleChange (e) {
     console.log(e.target.value)
     this.setState({
-      type: Number(e.target.value)
+      type: e.target.value
     })
   }
   searchMusic () {
@@ -36,8 +37,16 @@ class Music extends React.Component {
     return (
       <div className="m-music">
         <h1>我的音乐，我的电台</h1>
-        <Input onChange={this.handleChange.bind(this)} placeholder="查询音乐类型" />
-        <Button onClick={this.searchMusic.bind(this)}>检查一些字段</Button>
+        <hr/>
+        <Search 
+          placeholder = "input music type eg: 1,2, 轻音乐"
+          onChange={this.handleChange.bind(this)}
+          onSearch = {this.searchMusic.bind(this)}
+          enterButton
+        />
+        {/* <Input onChange={this.handleChange.bind(this)} placeholder="查询音乐类型" /> */}
+        {/* <Button onClick={this.searchMusic.bind(this)}>检查一些字段</Button> */}
+        <br/>
         <ul>
           {
             this.state.musics.map((item, index) => 

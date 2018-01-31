@@ -3,6 +3,12 @@ import logo from '../logo.png';
 import { Link } from 'react-router-dom'
 
 class About extends React.Component {
+  componentWillMount() {
+    global.constants.http.get('/api/auth')
+      .then(data => {
+        console.log(data)
+      })
+  }
   render() {
     return (
       <div className="m-about">

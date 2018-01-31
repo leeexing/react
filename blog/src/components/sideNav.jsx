@@ -1,4 +1,5 @@
 import React from 'react'
+import { message } from 'antd'
 import { Link } from 'react-router-dom'
 import PubSub from 'pubsub-js'
 
@@ -11,6 +12,7 @@ class SideNav extends React.Component {
     }
   }
   componentDidMount() {
+    console.log('执行了什么呢？')
     this.is_admin = PubSub.subscribe('login-ok', (topic, loginInfo) => {
       this.setState({
         isAdmin: loginInfo.isAdmin,
@@ -22,10 +24,19 @@ class SideNav extends React.Component {
     PubSub.unsubscribe(this.is_admin)
   }
   logout() {
-    sessionStorage.clear()
-    this.props.history.push('/login')
+    global.constants.http.post('/api/logout')
+      .then(data => {
+        console.log(data)
+        if (!data.data.success) {
+          message.error(data.data.msg)
+          return
+        }
+        sessionStorage.clear()
+        this.props.history.push('/login')
+      })
   }
   render() {
+    console.log(this.state.isAdmin)
     return (
       <nav className="m-sidenav">
         <section className="header-top">

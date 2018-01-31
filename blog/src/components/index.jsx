@@ -9,11 +9,11 @@ import { BackTop } from 'antd'
 
 class Index extends React.Component {
   componentWillMount() {
-    let auth = sessionStorage.getItem('auth')
-    console.log(auth)
-    if (auth === 'null') {
-      this.props.history.push('/login')
-    }
+    // let auth = sessionStorage.getItem('auth')
+    // console.log(auth)
+    // if (auth === 'null') {
+    //   this.props.history.push('/login')
+    // }
   }
   render() {
     return (

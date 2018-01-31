@@ -10,16 +10,21 @@ import Answer from './answer'
 
 class Admin extends React.Component {
   componentWillMount() {
-    console.log(this.props)
-    let auth = sessionStorage.getItem('auth')
-    let isAdmin = sessionStorage.getItem('isAdmin')
-    console.log(isAdmin)
-    console.log(auth)
-    if (auth === 'null') {
-      this.props.history.push('/login')
-    } else if (isAdmin === 'false') {
-      this.props.history.push('/')
-    }
+    // console.log(this.props)
+    // let auth = sessionStorage.getItem('auth')
+    // let isAdmin = sessionStorage.getItem('isAdmin')
+    // console.log(isAdmin)
+    // console.log(auth)
+    // if (auth === 'null') {
+    //   this.props.history.push('/login')
+    // } else if (isAdmin === 'false') {
+    //   this.props.history.push('/')
+    // }
+    global.constants.http.get('/api/admin')
+      .then(data => {
+        console.log(data)
+      })
+    // console.log(this.context)
   }
   render() {
     return (

@@ -41,3 +41,5 @@ export function helloLegend(text) {
 export function plusLengend(count) {
   return {type: PLUS_LEGEND, count}
 }
+
+// 

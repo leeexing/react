@@ -10,11 +10,11 @@ class ArticleList extends React.Component {
     }
   }
   componentDidMount() {
-    let auth = sessionStorage.getItem('auth')
-    console.log(auth)
-    if (auth === 'null' || auth === null) {
-      this.props.history.push('/login')
-    } else {
+    // let auth = sessionStorage.getItem('auth')
+    // console.log(auth)
+    // if (auth === 'null' || auth === null) {
+    //   this.props.history.push('/login')
+    // } else {
       // fetch('http://v3.wufazhuce.com:8000/api/channel/reading/more/0').then(res => {
       //   return res.json().then(data => {
       //     console.log(data)
@@ -23,15 +23,21 @@ class ArticleList extends React.Component {
       //     })
       //   })
       // })
-      axios.get('http://v3.wufazhuce.com:8000/api/channel/reading/more/0')
-        .then(data => {
-          // console.log(data)
-          this.setState({
-            articles: data.data.data
-          })
+      // axios.get('http://v3.wufazhuce.com:8000/api/channel/reading/more/0')
+      //   .then(data => {
+      //     // console.log(data)
+      //     this.setState({
+      //       articles: data.data.data
+      //     })
+      //   })
+    // }
+    axios.get('/api/article')
+      .then(data => {
+        // console.log(data)
+        this.setState({
+          articles: data.data.data.data
         })
-      
-    }
+      })
   }
   render() {
     return (

@@ -695,3 +695,31 @@ class Foo {
   }
 }
 ```
+
+## 豆瓣图片直接引入不能显示的问题
+
+起因是，图片是我从豆瓣上面直接趴下来存储在本地的mongodb数据库中的。如果直接将这个地址放在本地的浏览器中显示，会报一个 403 的错误
+
+```js imgError
+GET https://img1.doubanio.com/view/site/median/public/70ff7ae5f82f587.jpg 403 ()
+
+headers:
+    Request URL:https://img1.doubanio.com/view/site/median/public/24b552a7df1a7bc.jpg
+    Request Method:GET
+    Status Code:403 
+    Remote Address:58.222.18.30:443
+    Referrer Policy:no-referrer-when-downgrade
+
+重点是 Request Headers 中的 referer 字段
+
+    referer:http://localhost:3000/music
+
+```
+
+这是豆瓣做的 防盗链 处理
+**解决方案**：
+在 index.html 文档中添加如下字段
+
+```html
+<meta name="referrer" content="never">
+```

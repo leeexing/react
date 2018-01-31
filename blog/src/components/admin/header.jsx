@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PubSub from 'pubsub-js'
 import { Link} from 'react-router-dom'
-import { Menu, Dropdown, Icon } from 'antd'
+import { Menu, Dropdown, Icon, message } from 'antd'
 import avatar from '../../assets/images/admin_avatar.png'
 
 import store from '../../redux/store/store'
@@ -38,9 +38,10 @@ class Header extends React.Component {
     console.warn(this.context.store)
     console.log(store)
     let state_store = store.getState()
-    this.setState({
-      legend: state_store.legend.msg
-    })
+    console.log(state_store)
+    // this.setState({
+    //   legend: state_store.legend.msg
+    // })
 
     // 这里使用的是 订阅发布的方式 实现数据跨组间传递
     this.change_bg = PubSub.subscribe('change_bg', (topic, bgColor) => {
@@ -60,9 +61,19 @@ class Header extends React.Component {
     PubSub.unsubscribe(this.change_bg)
   }
   logout() {
-    console.log(this.props.history)
-    sessionStorage.setItem('auth', null)
-    this.props.history.push('/login')
+    global.constants.http.post('/api/logout')
+      .then(data => {
+        console.log(data)
+        if (!data.data.success) {
+          message.error(data.data.msg)
+          return
+        }
+        sessionStorage.clear()
+        this.props.history.push('/login')
+      })
+    // console.log(this.props.history)
+    // sessionStorage.setItem('auth', null)
+    // this.props.history.push('/login')
   }
   render() {
     return (
@@ -74,7 +85,7 @@ class Header extends React.Component {
           </Link>
         </div>
         <div className="site-brand">
-          <h1>LEE's Kingdom{this.context.store.legend.count > 0 ? this.context.store.legend.count : ''}</h1>
+          <h1>LEE's Kingdom</h1>
         </div>
         <div className="site-nav">
           <a onClick={this.logout.bind(this)} className="logout" style={this.state.color} ><i className="icon iconfont icon-logout"></i></a>
