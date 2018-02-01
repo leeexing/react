@@ -5,6 +5,7 @@ import ArticleList from './articleList'
 import ArticleDetail from './articleDetail'
 import Music from './music'
 import Search from './search'
+import Footer from './footer'
 import { BackTop } from 'antd'
 
 class Index extends React.Component {
@@ -32,7 +33,7 @@ class Index extends React.Component {
           </div>
         </main>
         <BackTop/>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     )
   }

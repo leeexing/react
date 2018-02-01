@@ -123,3 +123,15 @@
     // 文章列表
   }
 }
+
+/*
+* <react transition> 动画效果
+*/
+.map-appear {
+  opacity: 0.01;
+}
+
+.map-appear.map-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}

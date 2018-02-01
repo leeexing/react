@@ -2,9 +2,9 @@ import React from 'react'
 
 export default () => {
   return (
-    <footer>
+    <footer className="m-footer">
       2018
-      <i className="icon iconfont icon-enshrine"></i>
+      <i className="icon iconfont icon-blog"></i>
       Leeing
     </footer>
   )

@@ -128,7 +128,10 @@ def get_music(category=1):
     print(session)
     print(session.get('username'))
     if re.match('\d+', category):
-        musics = list(douban_music.find({"type": int(category)}))
+        if int(category) == 0:
+            musics = list(douban_music.find({}))
+        else:
+            musics = list(douban_music.find({"type": int(category)}))
     else:
         musics = list(douban_music.find({"typeName": {"$regex": category}})) # like查询
     # print(musics)
@@ -137,6 +140,16 @@ def get_music(category=1):
     data = {
         'success': True,
         'data': musics
+    }
+    return jsonify(data)
+
+@app.route('/api/music/type', methods=['GET'])
+def music_type():
+    types = list(douban_music.distinct('typeName'))
+    print(types)
+    data = {
+        'success': True,
+        'data': types
     }
     return jsonify(data)
 

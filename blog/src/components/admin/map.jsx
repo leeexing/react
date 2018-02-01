@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Divider} from 'antd'
 import PubSub from 'pubsub-js'
 import PropTypes from 'prop-types'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 // const PropTypes = require('prop-types') // 另外一种 引用方式
 
 class ToggleButton extends React.Component {
@@ -159,12 +160,22 @@ class Map extends React.Component {
         <p>与props只能逐级传递数据相比，使用context可以实现跨级传递数据。 </p>
         <Divider>2017年度最佳歌手颁奖典礼</Divider>
         <PopularSinger />
-        <Singer singer="周杰伦"/>
-        <Singer singer="陈奕迅"/>
-        <Singer singer="张学友"/>
-        <Singer singer="林俊杰"/>
-        <Singer singer="结实姐"/>
-        <Singer singer="jonyJ"/>
+        <ReactCSSTransitionGroup
+          transitionName="map"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnter={false}
+          transitionLeave={false}>
+        >
+          <div>
+            <Singer singer="周杰伦"/>
+            <Singer singer="陈奕迅"/>
+            <Singer singer="张学友"/>
+            <Singer singer="林俊杰"/>
+            <Singer singer="结实姐"/>
+            <Singer singer="jonyJ"/>
+          </div>
+        </ReactCSSTransitionGroup>
       </div>
     )
   }

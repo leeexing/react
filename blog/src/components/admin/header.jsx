@@ -84,7 +84,7 @@ class Header extends React.Component {
           </Link>
         </div>
         <div className="site-brand">
-          <h1>LEE's Kingdom {theme}</h1>
+          <h1>LEE's Kingdom</h1>
         </div>
         <div className="site-nav">
           <a onClick={this.logout.bind(this)} className="logout" style={headerColor} ><i className="icon iconfont icon-logout"></i></a>

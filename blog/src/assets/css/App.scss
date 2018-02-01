@@ -6,19 +6,28 @@
 */
 .app {
   position: relative;
+  min-height: 100%;
   .headband {
     height: 3px;
     background: #222;
   }
   .main {
+    flex: 1;
+    display: flex;
     max-width: 960px;
+    height: calc(100% - 10px);
     margin: 0 auto;
     .nav {
-      float: left;
+      // float: left;
+      width: 240px;
+      flex-shrink: 0;
     }
     .main-inner {
-      float: right;
-      width: 700px;
+      // float: right;
+      // width: 700px;
+      flex: 1;
+      margin-left: 20px;
+      min-height: 680px;
     }
   }
   footer{
@@ -45,10 +54,23 @@
 }
 
 /*
+* <底部栏>
+*/
+.m-footer {
+  color: #777;
+  i {
+    display: inline-block;
+    margin: 0 5px;
+    color: #52c41a;
+    animation: heartAnimate 1s ease-in-out infinite;
+  }
+}
+
+/*
 * <侧边栏>
 */
 .m-sidenav {
-  width: 240px;
+  // width: 240px;
   background: #fff;
   .site-brand {
     padding: 20px 0;
@@ -381,16 +403,32 @@
 * <音乐>
 */
 .m-music {
-  ul {
-    li {
-      float: left;
-      width: 80px;
-      height: 80px;
-      margin: 5px;
-      border: 1px solid #ddd;
-      img {
-        max-width: 100%;
+  .music-type {
+    padding: 5px 0 10px;
+    span {
+      padding: 0 5px;
+    }
+  }
+  .music-list {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 100%;
+      li {
+        // width: 80px;
+        // height: 80px;
+        margin: 5px;
+        padding: 3px;
+        border: 2px solid #ddd;
+        img {
+          max-width: 100%;
+        }
       }
     }
+  }
+  .paging {
+    margin-top: 20px;
+    text-align: right;
   }
 }

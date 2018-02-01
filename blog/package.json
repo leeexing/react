@@ -9,6 +9,7 @@
     "pubsub-js": "^1.6.0",
     "qs": "^6.5.1",
     "react": "^16.2.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-pubsub": "^0.5.0",
     "react-redux": "^5.0.6",
